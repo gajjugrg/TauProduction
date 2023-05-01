@@ -1,9 +1,9 @@
-//////////////////////////////////////////////////////////
-// This class has been automatically generated on
-// Sat Apr 29 22:25:13 2023 by ROOT version 6.26/06
-// from TTree tree/tree
-// found on file: TauProduction_7.5e6.root
-//////////////////////////////////////////////////////////
+/*--------------------------------------------------------------------------------------*/
+/*----------------------- Analysis Plot For Tau pair production ------------------------*/
+/*--------------------------------------------------------------------------------------*/
+// Author: Gajendra Gurung
+// Date  : May 1, 2023
+//
 
 #ifndef electronPositron_h
 #define electronPositron_h
