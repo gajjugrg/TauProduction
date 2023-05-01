@@ -37,7 +37,7 @@ void electronPositron::PlotTauDis()
 	Long64_t nEntries = fChain->GetEntriesFast();
 	cout << "This root file has : " << nEntries << " entries." << endl;
 	
-	TH1D* EnergyDis = new TH1D("EnergyDis", "Energy distribution of #tau's produced from e+e- annihilation; Energy [GeV]; Count/ 2 GeV", 45, 0, 91);
+	TH1D* EnergyDis = new TH1D("EnergyDis", "Energy distribution of #tau's produced from e+e- annihilation; Energy [GeV]; Count/ 2 GeV", 45, 0, 90);
 	EnergyDis ->SetLineColor(37);
 	TH1D* AngularDisPhi = new TH1D("AngularDisPhi", "Angular distribution of #tau's produced from e+e- annihilation; #theta [rad]; Count/ 42 mrad", 75, 0, 3.15);
 	AngularDisPhi->SetLineColor(37);
@@ -65,7 +65,7 @@ void electronPositron::PlotTauDis()
 	legend->AddEntry(AngularDisTheta,"Azimuthal #theta","le");
 	legend->AddEntry(AngularDisPhi,"Polar #phi","le");
 	legend->Draw();
-	gStyle->SetOptStat(0);
+//	gStyle->SetOptStat(0);
 	//	c->SetLogy(1);
 	
 	

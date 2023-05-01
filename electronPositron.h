@@ -67,12 +67,10 @@ public :
 #ifdef electronPositron_cxx
 electronPositron::electronPositron(TTree *tree) : fChain(0) 
 {
-// if parameter tree is not specified (or zero), connect the file
-// used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("TauProd_Asymmetrical_1e6.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("TauProd_Asymmetrical_TypeI_1e6.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("TauProd_Asymmetrical_1e6.root");
+         f = new TFile("TauProd_Asymmetrical_TypeI_1e6.root");
       }
       f->GetObject("tree",tree);
 
@@ -107,14 +105,6 @@ Long64_t electronPositron::LoadTree(Long64_t entry)
 
 void electronPositron::Init(TTree *tree)
 {
-   // The Init() function is called when the selector needs to initialize
-   // a new tree or chain. Typically here the branch addresses and branch
-   // pointers of the tree will be set.
-   // It is normally not necessary to make changes to the generated
-   // code, but the routine can be extended by the user if needed.
-   // Init() will be called many times when running on PROOF
-   // (once per file to be processed).
-   // Set branch addresses and branch pointers
    if (!tree) return;
    fChain = tree;
    fCurrent = -1;
@@ -136,27 +126,16 @@ void electronPositron::Init(TTree *tree)
 
 Bool_t electronPositron::Notify()
 {
-   // The Notify() function is called when a new file is opened. This
-   // can be either for a new TTree in a TChain or when when a new TTree
-   // is started when using PROOF. It is normally not necessary to make changes
-   // to the generated code, but the routine can be extended by the
-   // user if needed. The return value is currently not used.
-
-   return kTRUE;
+	return kTRUE;
 }
 
 void electronPositron::Show(Long64_t entry)
 {
-// Print contents of entry.
-// If entry is not specified, print current entry
    if (!fChain) return;
    fChain->Show(entry);
 }
 Int_t electronPositron::Cut(Long64_t entry)
 {
-// This function may be called from Loop.
-// returns  1 if entry is accepted.
-// returns -1 otherwise.
    return 1;
 }
 #endif // #ifdef electronPositron_cxx

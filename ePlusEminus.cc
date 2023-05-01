@@ -18,7 +18,7 @@ int cBeamEnergy = 91.2;
 void *handle(void *ptr)
 {
 	int ith = (long)ptr;
-	TFile *output = new TFile(Form("TauProd_Asymmetrical_1e5_t%d.root",ith),"recreate");
+	TFile *output = new TFile(Form("TauProd_Asymmetrical_TypeI_1e5_t%d.root",ith),"recreate");
 	TTree *tree 	= new TTree("tree", "tree");
 	
 	int id, event, size;
@@ -40,10 +40,13 @@ void *handle(void *ptr)
 	int nevents = 1e5;
 	Pythia8::Pythia pythia;
 	
+	double mZ = pythia.particleData.m0(23);
+	
 	pythia.readString("Beams:idA = 11");
 	pythia.readString("Beams:idB = -11");
-	pythia.readString("Beams:eA = 0.90*cBeamEnergy");
-	pythia.readString("Beams:eB = 0.10*cBeamEnergy");
+	pythia.readString("Beams:frameType = 2.");
+	pythia.readString("Beams:eA = 136.8");
+	pythia.readString("Beams:eB = 45.6");
 	pythia.readString("SoftQCD:all = off");
 	pythia.readString("HardQCD:all = on");
 	pythia.readString("WeakSingleBoson:ffbar2gmZ = on");

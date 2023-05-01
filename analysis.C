@@ -11,10 +11,9 @@ AngularDisTheta = (TH1F*)h -> Get("AngularDisTheta");
 AngularDisPhi = (TH1F*)h -> Get("AngularDisPhi");
 EnergyDis = (TH1F*)h -> Get("EnergyDis");
 
+gStyle->SetOptStat(0);
+
 TCanvas* c = new TCanvas("c", "Ratio of Angular Distribution");
-//AngularDisTheta_sym->Scale(.1/AngularDisTheta_sym->Integral("width"));
-//cout << AngularDisTheta_sym->Integral() << endl;
-//AngularDisTheta->Scale(.1/AngularDisTheta->Integral(), "width");
 auto rp = new TRatioPlot(AngularDisTheta_sym, AngularDisTheta, "divsym");
 c->SetTicks(0, 1);
 rp->Draw();
