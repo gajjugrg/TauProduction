@@ -37,16 +37,15 @@ void electronPositron::PlotTauDis()
 	Long64_t nEntries = fChain->GetEntriesFast();
 	cout << "This root file has : " << nEntries << " entries." << endl;
 	
-	TH1D* EnergyDis = new TH1D("EnergyDis", "Energy distribution of #tau's produced from e+e- annihilation; Energy [GeV]; Count/ 2 GeV", 45, 0, 90);
+	TH1D* EnergyDis = new TH1D("EnergyDis", "Energy distribution of #tau's produced from e+e- annihilation; Energy [GeV]; Count/ 2 GeV", 31, 0, 62);
 	EnergyDis ->SetLineColor(37);
 	TH1D* AngularDisPhi = new TH1D("AngularDisPhi", "Angular distribution of #tau's produced from e+e- annihilation; #theta [rad]; Count/ 42 mrad", 75, 0, 3.15);
 	AngularDisPhi->SetLineColor(37);
 	TH1D* AngularDisTheta = new TH1D("AngularDisTheta", "Angular distribution of #tau's produced from e+e- annihilation; #theta [rad]; Count/ 42 mrad", 75, 0, 3.15);
 	AngularDisTheta->SetLineColor(46);
 
-
-	for(Int_t i = 0; i < nEntries; i++)
-	{
+for(Int_t i = 0; i < nEntries; i++)
+{
 		fChain->GetEntry(i);
 		if( id != 15) continue;
 		EnergyDis->Fill(Ene);
@@ -56,6 +55,7 @@ void electronPositron::PlotTauDis()
 	auto c = new TCanvas("c","c");
 	EnergyDis->Draw("e1p");
 	c->SetLogy(1);
+	gPad->SetTickx();gPad->SetTicky();
 	
 	auto c1 = new TCanvas("c1","c1");
 	AngularDisTheta->Draw("e1p");
@@ -66,10 +66,12 @@ void electronPositron::PlotTauDis()
 	legend->AddEntry(AngularDisPhi,"Polar #phi","le");
 	legend->Draw();
 //	gStyle->SetOptStat(0);
-	//	c->SetLogy(1);
+//	c->SetLogy(1);
+	gPad->SetTickx();gPad->SetTicky();
 	
 	
-	TFile f("Asymm_Distribution.root","recreate");
+//	TFile f("Asymm_Distribution.root","recreate");
+	TFile f("Symm_Distribution.root","recreate");
 	EnergyDis->Write();
 	AngularDisTheta->Write();
 	AngularDisPhi->Write();

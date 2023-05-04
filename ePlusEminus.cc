@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------------------*/
-/*----------------------- PYTHIA script For Tau pair production ------------------------*/
+/*----------------------- PYTHIA script For tau pair production ------------------------*/
 /*--------------------------------------------------------------------------------------*/
 // Author: Gajendra Gurung
 // Date  : May 1, 2023
@@ -13,12 +13,11 @@
 #include"TThread.h"
 using namespace Pythia8;
 int const NumberOfThread = 10;
-int cBeamEnergy = 91.2;
- 
+
 void *handle(void *ptr)
 {
 	int ith = (long)ptr;
-	TFile *output = new TFile(Form("TauProd_Asymmetrical_TypeI_1e5_t%d.root",ith),"recreate");
+	TFile *output = new TFile(Form("TauProd_Symmetrical_1e5_t%d.root",ith),"recreate");
 	TTree *tree 	= new TTree("tree", "tree");
 	
 	int id, event, size;
@@ -35,8 +34,8 @@ void *handle(void *ptr)
 	tree->Branch("Ene", &Ene, "Ene/D");
 	tree->Branch("Phi", &Phi, "Phi/D");
 	tree->Branch("Theta", &Theta, "Theta/D");
-//	tree->Branch("name", &name, "name/C");
-
+	//tree->Branch("name", &name, "name/C");
+	
 	int nevents = 1e5;
 	Pythia8::Pythia pythia;
 	
@@ -44,9 +43,10 @@ void *handle(void *ptr)
 	
 	pythia.readString("Beams:idA = 11");
 	pythia.readString("Beams:idB = -11");
-	pythia.readString("Beams:frameType = 2.");
-	pythia.readString("Beams:eA = 136.8");
-	pythia.readString("Beams:eB = 45.6");
+	pythia.readString("Beams:eCM = 91.186");
+//	pythia.readString("Beams:frameType = 2.");
+//	pythia.readString("Beams:eA = 45.593");
+//	pythia.readString("Beams:eB = 45.593");
 	pythia.readString("SoftQCD:all = off");
 	pythia.readString("HardQCD:all = on");
 	pythia.readString("WeakSingleBoson:ffbar2gmZ = on");
@@ -57,23 +57,23 @@ void *handle(void *ptr)
 	
 	for(int i =0; i < nevents; i++)
 	{
-			if(!pythia.next()) continue;
-			int entries = pythia.event.size();
-			event = i;
-			size = entries;
-			for(int j =0; j < entries ; j++)
-			{
-					id  = pythia.event[j].id();
-					m   = pythia.event[j].m();
-					px  = pythia.event[j].px();
-					py  = pythia.event[j].py();
-					pz  = pythia.event[j].pz();
-					Ene = pythia.event[j].eCalc();
-					Phi  = pythia.event[j].phi();
-					Theta= pythia.event[j].theta();
-//					name = pythia.event[j].name();
-					tree->Fill();
-			}
+		if(!pythia.next()) continue;
+		int entries = pythia.event.size();
+		event = i;
+		size = entries;
+		for(int j =0; j < entries ; j++)
+		{
+			id  = pythia.event[j].id();
+			m   = pythia.event[j].m();
+			px  = pythia.event[j].px();
+			py  = pythia.event[j].py();
+			pz  = pythia.event[j].pz();
+			Ene = pythia.event[j].eCalc();
+			Phi  = pythia.event[j].phi();
+			Theta= pythia.event[j].theta();
+			//name = pythia.event[j].name();
+			tree->Fill();
+		}
 	}
 	output->Write();
 	output->Close();
@@ -90,5 +90,5 @@ int main()
 	{
 		th[i]->Join();
 	}
-    return 0;
+	return 0;
 }
