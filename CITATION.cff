@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Gurung
+    given-names: Gajendra
+    orcid: https://orcid.org/0000-0002-3133-3903
+title: "Tau Pair Production Simulation"
+version: 1.0.0
+doi: n/a
+date-released: 2023-05-04
